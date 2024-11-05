@@ -20,7 +20,8 @@ public abstract class Gatherable{
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
     }
-    public String toString() {
-        return "Quantity: " + quantity + ", Rarity: " + rarity;
-    }
+
+    abstract public String toString();
+
+    abstract public void gather(Player player);
 }
