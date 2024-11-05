@@ -1,16 +1,13 @@
 package com.github.cataratoru_fara_cap;
-import java.util.ArrayList;
 
 public abstract class Character {
-    private String name;
-    private boolean isAlive;
-    private int attack;
-    private int defense;
-    private int health;
-    private ArrayList<Potion> potions;
-    private ArrayList<Gatherable> resources;
+    protected String name;
+    protected boolean isAlive;
+    protected int attack;
+    protected int defense;
+    protected int health;
     
-    abstract public void damage(int damage);
-    abstract public void takeDamage(int damage);
+    abstract public void damage(int damage, Character enemy);
+    abstract public void takeDamage(int damage, Character enemy);
     abstract public void die();
 }
