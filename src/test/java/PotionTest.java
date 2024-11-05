@@ -1,6 +1,10 @@
+
+import com.github.cataratoru_fara_cap.Potion;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Potion Tests")

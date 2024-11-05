@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Tree;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Tree Tests")
