@@ -1,10 +1,11 @@
 package com.github.cataratoru_fara_cap;
-public class Tree extends Gatherable{
-    public Tree(int quantity, Rarity rarity) {
+
+public class Grain extends Gatherable{
+    public Grain(int quantity, Rarity rarity) {
         super(quantity, rarity);
     }
 
-    public double getWood() {
+    public double getGrain() {
         return getQuantity() * getRarity().getMultiplier();
     }
     
@@ -13,7 +14,7 @@ public class Tree extends Gatherable{
     }
 
     public String toString() {
-        return "Wood: " + getQuantity() + " Rarity: " + getRarity();
+        return "Grain: " + getQuantity() + " Rarity: " + getRarity();
     }
     
 }
