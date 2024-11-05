@@ -1,3 +1,4 @@
+package com.github.cataratoru_fara_cap;
 public enum Rarity {
     COMMON,
     RARE,

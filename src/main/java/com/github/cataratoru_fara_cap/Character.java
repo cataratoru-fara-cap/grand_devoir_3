@@ -1,3 +1,4 @@
+package com.github.cataratoru_fara_cap;
 import java.util.ArrayList;
 
 public abstract class Character {

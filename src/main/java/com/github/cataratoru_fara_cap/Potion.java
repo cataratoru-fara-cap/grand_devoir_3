@@ -1,3 +1,4 @@
+package com.github.cataratoru_fara_cap;
 public class Potion {
     private String name;
     private String attribute;
