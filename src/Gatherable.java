@@ -1,5 +1,5 @@
 public abstract class Gatherable{
-    private int quantity;
+    private float quantity;
     private Rarity rarity;
 
     public Gatherable(int quantity, Rarity rarity) {
@@ -7,7 +7,7 @@ public abstract class Gatherable{
         this.rarity = rarity;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
     public Rarity getRarity() {
