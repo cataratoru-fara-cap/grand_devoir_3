@@ -1,4 +1,7 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Gatherable;
+
+import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Character.Player;
 
 public class Rock extends Gatherable{
     public Rock(int quantity, Rarity rarity) {

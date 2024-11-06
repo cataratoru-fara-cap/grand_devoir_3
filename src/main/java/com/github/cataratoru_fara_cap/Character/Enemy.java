@@ -1,4 +1,4 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Character;
 
 public class Enemy extends Character {
     public Enemy(String name, int attack, int defense, int health) {

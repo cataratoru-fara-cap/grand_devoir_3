@@ -1,4 +1,8 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Gatherable;
+
+import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Character.Player;
+
 public class Tree extends Gatherable{
     public Tree(int quantity, Rarity rarity) {
         super(quantity, rarity);

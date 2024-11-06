@@ -1,4 +1,4 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Character;
 
 public abstract class Character {
     protected String name;

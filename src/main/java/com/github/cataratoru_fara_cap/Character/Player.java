@@ -1,5 +1,8 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Character;
 import java.util.ArrayList;
+
+import com.github.cataratoru_fara_cap.Potion;
+import com.github.cataratoru_fara_cap.Gatherable.Gatherable;
 
 public class Player extends Character {
     public ArrayList<Potion> potions;

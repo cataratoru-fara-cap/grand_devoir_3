@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.github.cataratoru_fara_cap.Rarity;
-import com.github.cataratoru_fara_cap.Tree;
+import com.github.cataratoru_fara_cap.Gatherable.Tree;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,7 @@
-package com.github.cataratoru_fara_cap;
+package com.github.cataratoru_fara_cap.Gatherable;
+
+import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Character.Player;
 
 public class Grain extends Gatherable{
     public Grain(int quantity, Rarity rarity) {
