@@ -9,7 +9,7 @@ public class Player extends Character {
     public ArrayList<Item> Items;
     public HashMap<String, Double> resources;
 
-    public Player(String name, int attack, int defense, int health,
+    public Player(String name, double attack, double defense, double health,
                  double wood, double rock, double grain) {
         this.name = name;
         this.isAlive = true;
@@ -23,15 +23,15 @@ public class Player extends Character {
         this.resources.put("grain", grain);
     }
 
-    public void damage(int damage, Character enemy) {
-        enemy.health -= damage*this.attack / enemy.defense ;
+    public void damage(Character enemy) {
+        enemy.health -= this.attack / enemy.defense ;
         if (enemy.health <= 0) {
             enemy.die();
         }
     }
 
-    public void takeDamage(int damage, Character enemy) {
-        this.health -= damage*enemy.attack / this.defense;
+    public void takeDamage(Character enemy) {
+        this.health -= enemy.attack / this.defense;
         if (this.health <= 0) {
             this.die();
         }

@@ -40,7 +40,30 @@ public class PlayerTest {
 
     @Test
     public void testToString() {
-        String expected = "Player: TestPlayer Health: 100 Attack: 10 Defense: 10 Resources: {rock=0.0, wood=0.0, grain=0.0}";
+        String expected = "Player: TestPlayer Health: 100.0 Attack: 10.0 Defense: 10.0 Resources: {rock=0.0, wood=0.0, grain=0.0}";
         assertEquals(expected, player.toString());
+    }
+
+    @Test
+    public void testTakeDamage() {
+        Enemy enemy = new Enemy("TestEnemy", 5, 5, 50);
+        player.takeDamage(enemy);
+        assertEquals(99.5, player.health);
+    }
+
+    @Test
+    public void testAttackEnemy() {
+        Enemy enemy = new Enemy("TestEnemy", 5, 5, 50);
+        player.damage(enemy);
+        assertEquals(48, enemy.health);
+    }
+
+    @Test
+    public void testDie() {
+        Enemy enemy = new Enemy("TestEnemy", 1000, 5, 50);
+        player.attack = 1000;
+        player.damage(enemy);
+        player.takeDamage(enemy);
+        assertFalse(player.isAlive);
     }
 }

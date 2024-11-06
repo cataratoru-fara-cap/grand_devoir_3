@@ -1,7 +1,7 @@
 package com.github.cataratoru_fara_cap.Character;
 
 public class Enemy extends Character {
-    public Enemy(String name, int attack, int defense, int health) {
+    public Enemy(String name, double attack, double defense, double health) {
         this.name = name;
         this.isAlive = true;
         this.attack = attack;
@@ -9,15 +9,15 @@ public class Enemy extends Character {
         this.health = health;
     }
 
-    public void damage(int damage, Character player) {
-        player.health -= damage*this.attack / player.defense ;
+    public void damage(Character player) {
+        player.health -= this.attack / player.defense ;
         if (player.health <= 0) {
             player.die();
         }
     }
 
-    public void takeDamage(int damage, Character player) {
-        this.health -= damage*player.attack / this.defense;
+    public void takeDamage(Character player) {
+        this.health -= player.attack / this.defense;
         if (this.health <= 0) {
             this.die();
         }
