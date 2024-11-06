@@ -1,9 +1,8 @@
 package com.github.cataratoru_fara_cap.Gatherable;
 
 import com.github.cataratoru_fara_cap.Rarity;
-import com.github.cataratoru_fara_cap.Character.Player;
-
-public abstract class Gatherable{
+public abstract class Gatherable {
+    protected String name;
     private float quantity;
     private Rarity rarity;
 
@@ -21,11 +20,16 @@ public abstract class Gatherable{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
+    }
+    
+    public String getName() {
+        return name;
     }
 
     abstract public String toString();
 
-    abstract public void gather(Player player);
+    abstract public double gather();
 }
