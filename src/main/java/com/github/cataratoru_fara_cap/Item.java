@@ -1,9 +1,9 @@
 package com.github.cataratoru_fara_cap;
-public class Potion {
+public class Item {
     private String name;
     private String attribute;
 
-    public Potion(String name, String attribute) {
+    public Item(String name, String attribute) {
         this.name = name;
         this.attribute = attribute;
     }

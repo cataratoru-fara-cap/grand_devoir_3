@@ -1,11 +1,11 @@
 package com.github.cataratoru_fara_cap.Character;
 import java.util.ArrayList;
 
-import com.github.cataratoru_fara_cap.Potion;
+import com.github.cataratoru_fara_cap.Item;
 import com.github.cataratoru_fara_cap.Gatherable.Gatherable;
 
 public class Player extends Character {
-    public ArrayList<Potion> potions;
+    public ArrayList<Item> Items;
     public ArrayList<Gatherable> resources;
 
     public Player(String name, int attack, int defense, int health) {
@@ -14,7 +14,7 @@ public class Player extends Character {
         this.attack = attack;
         this.defense = defense;
         this.health = health;
-        this.potions = new ArrayList<Potion>();
+        this.Items = new ArrayList<Item>();
         this.resources = new ArrayList<Gatherable>();
     }
 
@@ -36,8 +36,8 @@ public class Player extends Character {
         this.isAlive = false;
     }
 
-    public void usePotion(Potion potion) {
-        throw new UnsupportedOperationException("Unimplemented method 'usePotion'");
+    public void useItem(Item item) {
+        throw new UnsupportedOperationException("Unimplemented method 'useItem'");
     }
 
     public String toString() {
