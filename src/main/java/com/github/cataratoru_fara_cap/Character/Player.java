@@ -1,6 +1,8 @@
 package com.github.cataratoru_fara_cap.Character;
 import java.util.HashMap;
 
+import com.github.cataratoru_fara_cap.Building;
+import com.github.cataratoru_fara_cap.Effect;
 import com.github.cataratoru_fara_cap.Rarity;
 import com.github.cataratoru_fara_cap.Gatherable.Gatherable;
 import com.github.cataratoru_fara_cap.Item.*;
@@ -99,8 +101,52 @@ public class Player extends Character {
         }
     }
 
-    public void makeBuilding(Item item) {
-        throw new UnsupportedOperationException("Unimplemented method 'makeBuilding'");
+    public Building makeLifeFountain() {
+        double requiredWood = 50;
+        double requiredStone = 30;
+
+        if (resources.getOrDefault("wood", 0.0) >= requiredWood
+                && resources.getOrDefault("stone", 0.0) >= requiredStone) {
+            resources.put("wood", resources.get("wood") - requiredWood);
+            resources.put("stone", resources.get("stone") - requiredStone);
+            Building lifeFountain = new Building("lifeFountain", Effect.HEALTH);
+            return lifeFountain;
+        } else {
+            System.out.println("Not enough resources to build Life Fountain.");
+            return null;
+        }
+    }
+
+    public Building makeArmory() {
+        double requiredWood = 70;
+        double requiredStone = 50;
+
+        if (resources.getOrDefault("wood", 0.0) >= requiredWood
+                && resources.getOrDefault("stone", 0.0) >= requiredStone) {
+            resources.put("wood", resources.get("wood") - requiredWood);
+            resources.put("stone", resources.get("stone") - requiredStone);
+            Building armory = new Building("armory", Effect.DEFENSE);
+            return armory;
+        } else {
+            System.out.println("Not enough resources to build Armory.");
+            return null;
+        }
+    }
+
+    public Building makeWeaponsHold() {
+        double requiredWood = 100;
+        double requiredStone = 80;
+
+        if (resources.getOrDefault("wood", 0.0) >= requiredWood
+                && resources.getOrDefault("stone", 0.0) >= requiredStone) {
+            resources.put("wood", resources.get("wood") - requiredWood);
+            resources.put("stone", resources.get("stone") - requiredStone);
+            Building weaponsHold = new Building("weaponsHold", Effect.ATTACK);
+            return weaponsHold;
+        } else {
+            System.out.println("Not enough resources to build Weapons Hold.");
+            return null;
+        }
     }
 
     public void gatherResource(Gatherable resourceType) {

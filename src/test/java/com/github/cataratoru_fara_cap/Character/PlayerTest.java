@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import com.github.cataratoru_fara_cap.Gatherable.*;
 import com.github.cataratoru_fara_cap.Item.*;
+import com.github.cataratoru_fara_cap.Building;
+import com.github.cataratoru_fara_cap.Effect;
 import com.github.cataratoru_fara_cap.Rarity;
 
 import java.io.ByteArrayOutputStream;
@@ -163,6 +165,64 @@ public class PlayerTest {
             player.makeItem("food", Rarity.COMMON);
             assertFalse(player.Items.containsKey("Crafted Food 2"));
             assertTrue(outContent.toString().contains("Not enough resources to craft food."));
+        }
+    }
+
+    @Nested
+    @DisplayName("Building Construction Tests")
+    class BuildingConstructionTests {
+        @Test
+        public void testMakeLifeFountain() {
+            player.resources.put("wood", 50.0);
+            player.resources.put("stone", 30.0);
+            Building lifeFountain = player.makeLifeFountain();
+            assertNotNull(lifeFountain);
+            assertEquals("lifeFountain", lifeFountain.name);
+            assertEquals(Effect.HEALTH, lifeFountain.effect);
+            assertEquals(0.0, player.resources.get("wood"));
+            assertEquals(0.0, player.resources.get("stone"));
+
+            // Not enough resources
+            player.resources.put("wood", 20.0);
+            player.resources.put("stone", 10.0);
+            lifeFountain = player.makeLifeFountain();
+            assertNull(lifeFountain);
+        }
+
+        @Test
+        public void testMakeArmory() {
+            player.resources.put("wood", 70.0);
+            player.resources.put("stone", 50.0);
+            Building armory = player.makeArmory();
+            assertNotNull(armory);
+            assertEquals("armory", armory.name);
+            assertEquals(Effect.DEFENSE, armory.effect);
+            assertEquals(0.0, player.resources.get("wood"));
+            assertEquals(0.0, player.resources.get("stone"));
+
+            // Not enough resources
+            player.resources.put("wood", 30.0);
+            player.resources.put("stone", 20.0);
+            armory = player.makeArmory();
+            assertNull(armory);
+        }
+
+        @Test
+        public void testMakeWeaponsHold() {
+            player.resources.put("wood", 100.0);
+            player.resources.put("stone", 80.0);
+            Building weaponsHold = player.makeWeaponsHold();
+            assertNotNull(weaponsHold);
+            assertEquals("weaponsHold", weaponsHold.name);
+            assertEquals(Effect.ATTACK, weaponsHold.effect);
+            assertEquals(0.0, player.resources.get("wood"));
+            assertEquals(0.0, player.resources.get("stone"));
+
+            // Not enough resources
+            player.resources.put("wood", 50.0);
+            player.resources.put("stone", 30.0);
+            weaponsHold = player.makeWeaponsHold();
+            assertNull(weaponsHold);
         }
     }
 
