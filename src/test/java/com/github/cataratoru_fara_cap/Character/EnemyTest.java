@@ -31,11 +31,17 @@ public class EnemyTest {
 
     @Test
     public void testDie() {
+        String input = "yes\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
         player.attack = 1000;
         enemy.attack = 1000;
         enemy.takeDamage(player);
         enemy.damage(player);
         assertFalse(enemy.isAlive);
+
+        System.setIn(System.in);
     }
 
     @Test
@@ -47,6 +53,7 @@ public class EnemyTest {
     @Test
     public void testDropItem() {
         Item sword = new Sword("TestSword", Rarity.COMMON);
+        enemy.Items.clear();
         enemy.Items.put(sword.getName(), sword);
         Item droppedItem = enemy.dropItem();
         assertNotNull(droppedItem);
@@ -56,6 +63,7 @@ public class EnemyTest {
     @Test
     public void testTakeDamageWithItemDrop() {
         Item sword = new Sword("TestSword", Rarity.COMMON);
+        enemy.Items.clear();
         enemy.Items.put(sword.getName(), sword);
         player.attack = 1000;
 

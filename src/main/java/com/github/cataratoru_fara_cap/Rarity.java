@@ -20,8 +20,15 @@ public enum Rarity {
             //Implemented in order to future-proof the code
         }
     }
-    
+
     public static Rarity getRandom() {
-        return values()[(int) (Math.random() * values().length)];
+        double randomValue = Math.random();
+        if (randomValue < 0.5) {
+            return COMMON;
+        } else if (randomValue < 0.85) {
+            return RARE;
+        } else {
+            return EPIC;
+        }
     }
 }

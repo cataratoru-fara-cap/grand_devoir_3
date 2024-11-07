@@ -15,13 +15,18 @@ public class Enemy extends Character {
         this.health = health;
         this.Items = new HashMap<String, Item>();
        
-        Item sword = new Sword("CoolSword", Rarity.getRandom());
-        Item shield = new Shield("CoolShield", Rarity.getRandom());
-        Item food = new Food("CoolFood", Rarity.getRandom());
-
-        this.Items.put("CoolSword", sword);
-        this.Items.put("CoolShield", shield);
-        this.Items.put("CoolFood", food);
+        if (Math.random() < 0.3){ 
+            Item sword = new Sword("CoolSword", Rarity.getRandom());
+            this.Items.put("CoolSword", sword);
+        }
+        if (Math.random() < 0.3) {
+            Item shield = new Shield("CoolShield", Rarity.getRandom());
+            this.Items.put("CoolShield", shield);
+        }
+        if (Math.random() < 0.3){ 
+            Item food = new Food("CoolFood", Rarity.getRandom());
+            this.Items.put("CoolFood", food);
+        }
     }
 
     public void damage(Character player) {
