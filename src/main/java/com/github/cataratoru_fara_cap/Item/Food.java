@@ -6,8 +6,8 @@ import com.github.cataratoru_fara_cap.Character.Character;
 
 
 public class Food extends Item {
-    public Food(String name, Effect effect, Rarity rarity) {
-        super(name, effect, rarity);
+    public Food(String name, Rarity rarity) {
+        super(name, Effect.HEALTH, rarity);
     }
 
     @Override
