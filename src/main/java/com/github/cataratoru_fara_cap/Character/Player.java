@@ -1,8 +1,9 @@
 package com.github.cataratoru_fara_cap.Character;
 import java.util.HashMap;
 
+import com.github.cataratoru_fara_cap.Rarity;
 import com.github.cataratoru_fara_cap.Gatherable.Gatherable;
-import com.github.cataratoru_fara_cap.Item.Item;
+import com.github.cataratoru_fara_cap.Item.*;
 
 public class Player extends Character {
     public HashMap<String, Double> resources;
@@ -49,8 +50,53 @@ public class Player extends Character {
         }
     }
 
-    public void makeItem() {
-        throw new UnsupportedOperationException("Unimplemented method 'makeItem'");
+    public void makeItem(String itemType, Rarity rarity) {
+        double woodRequired = 0;
+        double rockRequired = 0;
+        double grainRequired = 0;
+
+        switch (itemType.toLowerCase()) {
+            case "sword":
+                woodRequired = 5 * rarity.getMultiplier();
+                rockRequired = 3 * rarity.getMultiplier();
+                if (resources.get("wood") >= woodRequired && resources.get("rock") >= rockRequired) {
+                    Item newItem = new Sword("Crafted Sword", rarity);
+                    this.Items.put(newItem.getName(), newItem);
+                    resources.put("wood", resources.get("wood") - woodRequired);
+                    resources.put("rock", resources.get("rock") - rockRequired);
+                    System.out.println("Crafted a new sword: " + newItem.getName());
+                } else {
+                    System.out.println("Not enough resources to craft a sword.");
+                }
+                break;
+            case "shield":
+                woodRequired = 7 * rarity.getMultiplier();
+                rockRequired = 2 * rarity.getMultiplier();
+                if (resources.get("wood") >= woodRequired && resources.get("rock") >= rockRequired) {
+                    Item newItem = new Shield("Crafted Shield", rarity);
+                    this.Items.put(newItem.getName(), newItem);
+                    resources.put("wood", resources.get("wood") - woodRequired);
+                    resources.put("rock", resources.get("rock") - rockRequired);
+                    System.out.println("Crafted a new shield: " + newItem.getName());
+                } else {
+                    System.out.println("Not enough resources to craft a shield.");
+                }
+                break;
+            case "food":
+                grainRequired = 10 * rarity.getMultiplier();
+                if (resources.get("grain") >= grainRequired) {
+                    Item newItem = new Food("Crafted Food", rarity);
+                    this.Items.put(newItem.getName(), newItem);
+                    resources.put("grain", resources.get("grain") - grainRequired);
+                    System.out.println("Crafted new food: " + newItem.getName());
+                } else {
+                    System.out.println("Not enough resources to craft food.");
+                }
+                break;
+            default:
+                System.out.println("Unknown item type.");
+                break;
+        }
     }
 
     public void makeBuilding(Item item) {

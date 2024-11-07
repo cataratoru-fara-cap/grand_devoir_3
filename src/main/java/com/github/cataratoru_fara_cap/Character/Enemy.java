@@ -1,6 +1,6 @@
 package com.github.cataratoru_fara_cap.Character;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.github.cataratoru_fara_cap.Item.Item;
 
@@ -11,12 +11,12 @@ public class Enemy extends Character {
         this.attack = attack;
         this.defense = defense;
         this.health = health;
-        this.Items = new ArrayList<Item>();
+        this.Items = new HashMap<String, Item>();
 
     }
 
     public void damage(Character player) {
-        player.health -= this.attack / player.defense ;
+        player.health -= this.attack / player.defense;
         if (player.health <= 0) {
             player.die();
         }
@@ -30,7 +30,7 @@ public class Enemy extends Character {
     }
 
     public void dropItem() {
-        //Function that randomly drops an inventory item upon death
+        // Function that randomly drops an inventory item upon death
         throw new UnsupportedOperationException("Unimplemented method 'dropItem'");
     }
 
@@ -39,7 +39,8 @@ public class Enemy extends Character {
     }
 
     public String toString() {
-        return "Enemy: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: " + this.defense;
+        return "Enemy: " + this.name + " Health: " + this.health + " Attack: " + this.attack + " Defense: "
+                + this.defense;
     }
 
 }
