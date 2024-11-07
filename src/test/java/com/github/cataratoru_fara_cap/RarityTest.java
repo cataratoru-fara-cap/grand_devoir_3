@@ -32,7 +32,7 @@ public class RarityTest {
         @Test
         @DisplayName("Epic Rarity")
         public void testUnimplementedRarity() {
-            assertEquals(1.0, Rarity.UNCOMMON.getMultiplier());
+            assertEquals(1, Rarity.NONE.getMultiplier());
         }
     }
 }

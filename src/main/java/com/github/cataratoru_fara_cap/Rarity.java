@@ -1,7 +1,8 @@
 package com.github.cataratoru_fara_cap;
+
 public enum Rarity {
+    NONE,
     COMMON,
-    UNCOMMON,
     RARE,
     EPIC;
 
