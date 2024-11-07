@@ -2,20 +2,12 @@ package com.github.cataratoru_fara_cap.Item;
 
 import com.github.cataratoru_fara_cap.Effect;
 import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Character.Character;
 
 public abstract class Item {
-    private String name;
-    private Effect effect = Effect.NONE;
-    private Rarity rarity = Rarity.COMMON;
-
-    public Item(String name) {
-        this.name = name;
-    }
-
-    public Item(String name, Effect effect) {
-        this.name = name;
-        this.effect = effect;
-    }
+    protected String name;
+    protected Effect effect;
+    protected Rarity rarity;
 
     public Item(String name, Effect effect, Rarity rarity) {
         this.name = name;
@@ -23,6 +15,8 @@ public abstract class Item {
         this.rarity = rarity;
     }
 
+    abstract public void use(Character character);
+    
     public String getName() {
         return name;
     }
@@ -31,7 +25,7 @@ public abstract class Item {
         return effect;
     }
     
-    public Rarity geRarity() {
+    public Rarity getRarity() {
         return rarity;
     }
 
@@ -45,5 +39,19 @@ public abstract class Item {
 
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
+    }
+
+    public static int compareItems(Item item1, Item item2) {
+        int rarityComparison = item1.rarity.compareTo(item2.rarity);
+        if (rarityComparison != 0) {
+            return rarityComparison;
+        }
+
+        int effectComparison = item1.effect.compareTo(item2.effect);
+        if (effectComparison != 0) {
+            return effectComparison;
+        }
+
+        return item1.name.compareTo(item2.name);
     }
 }
