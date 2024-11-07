@@ -23,7 +23,7 @@ public class Building {
                 player.health += player.health/10;
                 break;
             default:
-                throw new IllegalArgumentException("Unknown effect: " + effect);
+                System.out.println("The building you are in is just a normal house and provides no bonus");
         }
     }
     public enum Effect {
