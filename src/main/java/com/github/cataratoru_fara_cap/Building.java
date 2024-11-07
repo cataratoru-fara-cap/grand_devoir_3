@@ -14,13 +14,13 @@ public class Building {
     public void applyEffect(Player player) {
         switch (effect) {
             case ATTACK:
-                player.attack += 5;
+                player.attack += player.attack/10;
                 break;
             case DEFENSE:
-                player.defense += 5;
+                player.defense += player.defense/10;
                 break;
             case HEALTH:
-                player.health += 5;
+                player.health += player.health/10;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown effect: " + effect);
