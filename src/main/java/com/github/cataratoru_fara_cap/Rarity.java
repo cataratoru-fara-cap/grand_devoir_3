@@ -16,8 +16,12 @@ public enum Rarity {
                 return 5.0;
             default:
                 return 1.0;
-                //Unimplemented rarity
-                //Implemented in order to future-proof the code
+            //Unimplemented rarity is treated as common
+            //Implemented in order to future-proof the code
         }
+    }
+    
+    public static Rarity getRandom() {
+        return values()[(int) (Math.random() * values().length)];
     }
 }

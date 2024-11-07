@@ -3,7 +3,8 @@ package com.github.cataratoru_fara_cap.Character;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.github.cataratoru_fara_cap.Item.Item;
+import com.github.cataratoru_fara_cap.Rarity;
+import com.github.cataratoru_fara_cap.Item.*;
 
 public class Enemy extends Character {
     public Enemy(String name, double attack, double defense, double health) {
@@ -13,6 +14,14 @@ public class Enemy extends Character {
         this.defense = defense;
         this.health = health;
         this.Items = new HashMap<String, Item>();
+       
+        Item sword = new Sword("CoolSword", Rarity.getRandom());
+        Item shield = new Shield("CoolShield", Rarity.getRandom());
+        Item food = new Food("CoolFood", Rarity.getRandom());
+
+        this.Items.put("CoolSword", sword);
+        this.Items.put("CoolShield", shield);
+        this.Items.put("CoolFood", food);
     }
 
     public void damage(Character player) {
