@@ -1,3 +1,4 @@
+package com.github.cataratoru_fara_cap;
 
 import com.github.cataratoru_fara_cap.Item;
 
