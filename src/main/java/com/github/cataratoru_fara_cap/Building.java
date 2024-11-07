@@ -26,9 +26,4 @@ public class Building {
                 System.out.println("The building you are in is just a normal house and provides no bonus");
         }
     }
-    public enum Effect {
-        ATTACK,
-        DEFENSE,
-        HEALTH;
-        }
-    }
+}
