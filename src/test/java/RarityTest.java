@@ -28,5 +28,10 @@ public class RarityTest {
         public void testEpicRarity() {
             assertEquals(5.0, Rarity.EPIC.getMultiplier());
         }
+        @Test
+        @DisplayName("Epic Rarity")
+        public void testUnimplementedRarity() {
+            assertEquals(1.0, Rarity.UNCOMMON.getMultiplier());
+        }
     }
 }

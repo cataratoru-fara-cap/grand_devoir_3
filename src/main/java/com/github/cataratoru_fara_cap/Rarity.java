@@ -1,6 +1,7 @@
 package com.github.cataratoru_fara_cap;
 public enum Rarity {
     COMMON,
+    UNCOMMON,
     RARE,
     EPIC;
 
@@ -13,7 +14,8 @@ public enum Rarity {
             case EPIC:
                 return 5.0;
             default:
-                throw new IllegalArgumentException("Unknown rarity: " + this);
+                return 1.0;
+                //Unimplemented rarity
                 //Implemented in order to future-proof the code
         }
     }
