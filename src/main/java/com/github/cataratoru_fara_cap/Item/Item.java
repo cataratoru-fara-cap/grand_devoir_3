@@ -54,4 +54,9 @@ public abstract class Item {
 
         return item1.name.compareTo(item2.name);
     }
+
+    @Override
+    public String toString() {
+        return "Item [name=" + name + ", effect=" + effect + ", rarity=" + rarity.toString() + "]";
+    }
 }

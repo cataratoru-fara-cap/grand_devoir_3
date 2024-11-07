@@ -5,8 +5,8 @@ import com.github.cataratoru_fara_cap.Effect;
 import com.github.cataratoru_fara_cap.Character.Character;
 
 public class Sword extends Item {
-    public Sword(String name, Effect effect, Rarity rarity) {
-        super(name, effect, rarity);
+    public Sword(String name,Rarity rarity) {
+        super(name, Effect.ATTACK, rarity);
     }
 
     @Override

@@ -5,8 +5,8 @@ import com.github.cataratoru_fara_cap.Effect;
 import com.github.cataratoru_fara_cap.Character.Character;
 
 public class Shield extends Item {
-    public Shield(String name, Effect effect, Rarity rarity) {
-        super(name, effect, rarity);
+    public Shield(String name, Rarity rarity) {
+        super(name, Effect.DEFENSE, rarity);
     }
 
     @Override
