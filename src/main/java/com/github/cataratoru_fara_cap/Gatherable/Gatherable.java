@@ -4,21 +4,24 @@ import com.github.cataratoru_fara_cap.Rarity;
 public abstract class Gatherable {
     protected String name;
     private float quantity;
-    private Rarity rarity;
+    private Rarity rarity = Rarity.COMMON;
 
     public Gatherable(int quantity, Rarity rarity) {
         this.quantity = quantity;
-        this.rarity = rarity;
+        if (rarity != null) {
+            this.rarity = rarity;
+        }
     }
 
     public double getQuantity() {
         return quantity;
     }
-    public Rarity getRarity() {
-        return rarity;
-    }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    
+    public Rarity getRarity() {
+        return rarity;
     }
 
     public void setRarity(Rarity rarity) {
@@ -28,6 +31,7 @@ public abstract class Gatherable {
     public String getName() {
         return name;
     }
+    // we don t need a setter for Name
 
     abstract public String toString();
 

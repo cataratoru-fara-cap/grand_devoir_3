@@ -6,7 +6,21 @@ import org.junit.jupiter.api.Test;
 import com.github.cataratoru_fara_cap.Rarity;
 
 public class GatherableTest {
-
+    @Test
+    public void testGatherableSetters() {
+        Tree tree = new Tree(10, Rarity.COMMON);
+        tree.setQuantity(100);
+        tree.setRarity(null);
+        assertEquals(100, tree.getQuantity());
+        assertNull(tree.getRarity());
+    }
+    
+    @Test
+    public void testGatherableInit() {
+        Tree tree = new Tree(10, null);
+        assertEquals(Rarity.COMMON, tree.getRarity());
+        assertEquals("wood", tree.getName());
+    }
     @Test
     public void testTreeGather() {
         Tree tree = new Tree(10, Rarity.COMMON);
