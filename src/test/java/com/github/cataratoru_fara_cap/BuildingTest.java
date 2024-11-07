@@ -1,13 +1,11 @@
 package com.github.cataratoru_fara_cap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.github.cataratoru_fara_cap.Character.Player;
-import com.github.cataratoru_fara_cap.Building.Effect;
 
 public class BuildingTest {
     private Player player;

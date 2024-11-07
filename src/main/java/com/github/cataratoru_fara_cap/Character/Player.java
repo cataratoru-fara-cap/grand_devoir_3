@@ -2,11 +2,10 @@ package com.github.cataratoru_fara_cap.Character;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.github.cataratoru_fara_cap.Item;
 import com.github.cataratoru_fara_cap.Gatherable.Gatherable;
+import com.github.cataratoru_fara_cap.Item.Item;
 
 public class Player extends Character {
-    public ArrayList<Item> Items;
     public HashMap<String, Double> resources;
 
     public Player(String name, double attack, double defense, double health,
@@ -43,6 +42,14 @@ public class Player extends Character {
 
     public void useItem(Item item) {
         throw new UnsupportedOperationException("Unimplemented method 'useItem'");
+    }
+
+    public void makeItem() {
+        throw new UnsupportedOperationException("Unimplemented method 'makeItem'");
+    }
+
+    public void makeBuilding(Item item) {
+        throw new UnsupportedOperationException("Unimplemented method 'makeBuilding'");
     }
 
     public void gatherResource(Gatherable resourceType) {

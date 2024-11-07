@@ -1,10 +1,10 @@
 package com.github.cataratoru_fara_cap;
 
-import com.github.cataratoru_fara_cap.Item;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.github.cataratoru_fara_cap.Item.Item;
 
 import static org.junit.jupiter.api.Assertions.*;
 

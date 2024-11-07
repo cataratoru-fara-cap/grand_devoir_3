@@ -1,5 +1,9 @@
 package com.github.cataratoru_fara_cap.Character;
 
+import java.util.ArrayList;
+
+import com.github.cataratoru_fara_cap.Item.Item;
+
 public class Enemy extends Character {
     public Enemy(String name, double attack, double defense, double health) {
         this.name = name;
@@ -7,6 +11,8 @@ public class Enemy extends Character {
         this.attack = attack;
         this.defense = defense;
         this.health = health;
+        this.Items = new ArrayList<Item>();
+
     }
 
     public void damage(Character player) {
@@ -21,6 +27,11 @@ public class Enemy extends Character {
         if (this.health <= 0) {
             this.die();
         }
+    }
+
+    public void dropItem() {
+        //Function that randomly drops an inventory item upon death
+        throw new UnsupportedOperationException("Unimplemented method 'dropItem'");
     }
 
     public void die() {
