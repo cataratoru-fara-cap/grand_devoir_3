@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Main {
-    //Maybe use ASSCI UNICODE EMOJIS OR AT LEAST COLORED CHARS? OR ADD OPTION TO USE EMOJI'S?
+    // Maybe use ASSCI UNICODE EMOJIS OR AT LEAST COLORED CHARS? OR ADD OPTION TO
+    // USE EMOJI'S?
     private static int MAP_SIZE;
     private static final char EMPTY = '0';
     private static final char PLAYER = 'P';
@@ -20,6 +21,13 @@ public class Main {
     private static final char ROCK = 'R';
     private static final char GRAIN = 'G';
     private static final char ENEMY = 'E';
+
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
+    private static final String ANSI_BRIGHT_RED = "\u001B[91m";
+    private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
+    private static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
+    private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
 
     private static char[][] map;
     private static Player player;
@@ -32,6 +40,10 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 printMap();
+                System.out.println("Do you want to craft something?(Yes/no): ");
+                String ans = scanner.nextLine();
+                craft(ans);
+
                 System.out.println("Enter move (WASD): ");
                 char move = scanner.next().charAt(0);
                 movePlayer(move);
@@ -47,7 +59,7 @@ public class Main {
     private static void initializeGame() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode rootNode = mapper.readTree(new File("seed.json"));
+            JsonNode rootNode = mapper.readTree(new File("src/main/resources/seed.json"));
             MAP_SIZE = rootNode.get("mapSize").asInt();
             numEnemies = rootNode.get("enemies").asInt(); // Initialize numEnemies here
         } catch (IOException e) {
@@ -70,7 +82,7 @@ public class Main {
     private static void placeObjects() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode rootNode = mapper.readTree(new File("seed.json"));
+            JsonNode rootNode = mapper.readTree(new File("src/main/resources/seed.json"));
             int numTrees = rootNode.get("trees").asInt();
             int numRocks = rootNode.get("rocks").asInt();
             int numGrains = rootNode.get("grains").asInt();
@@ -99,16 +111,39 @@ public class Main {
     }
 
     private static void printMap() {
+        System.out.println();
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
-                System.out.print(map[i][j] + " ");
+                switch (map[i][j]) {
+                    case PLAYER:
+                        System.out.print(ANSI_BRIGHT_BLUE + map[i][j] + ANSI_RESET + " ");
+                        break;
+                    case ENEMY:
+                        System.out.print(ANSI_BRIGHT_RED + map[i][j] + ANSI_RESET + " ");
+                        break;
+                    case TREE:
+                        System.out.print(ANSI_BRIGHT_GREEN + map[i][j] + ANSI_RESET + " ");
+                        break;
+                    case GRAIN:
+                        System.out.print(ANSI_BRIGHT_YELLOW + map[i][j] + ANSI_RESET + " ");
+                        break;
+                    case ROCK:
+                        System.out.print(ANSI_BRIGHT_WHITE + map[i][j] + ANSI_RESET + " ");
+                        break;
+                    default:
+                        System.out.print(map[i][j] + " ");
+                }
             }
             System.out.println();
         }
     }
 
+    private static void craft(String ans) {
+        System.out.println("You don't know how to craft items yet");
+    }
+
     private static void movePlayer(char move) {
-        //This overides the object that we are moving towards
+        // This overides the object that we are moving towards
         map[playerX][playerY] = EMPTY;
         switch (move) {
             case 'W':
