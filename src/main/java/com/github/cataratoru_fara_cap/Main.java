@@ -5,10 +5,15 @@ import com.github.cataratoru_fara_cap.Gatherable.*;
 import com.github.cataratoru_fara_cap.Item.*;
 
 import java.util.Scanner;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 public class Main {
     //Maybe use ASSCI UNICODE EMOJIS OR AT LEAST COLORED CHARS? OR ADD OPTION TO USE EMOJI'S?
-    private static final int MAP_SIZE = 10;
+    private static int MAP_SIZE;
     private static final char EMPTY = '0';
     private static final char PLAYER = 'P';
     private static final char TREE = 'T';
@@ -16,26 +21,43 @@ public class Main {
     private static final char GRAIN = 'G';
     private static final char ENEMY = 'E';
 
-    private static char[][] map = new char[MAP_SIZE][MAP_SIZE];
+    private static char[][] map;
     private static Player player;
     private static int playerX = 0;
     private static int playerY = 0;
+    private static int numEnemies;
 
     public static void main(String[] args) {
         initializeGame();
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                printMap();
+                System.out.println("Enter move (WASD): ");
+                char move = scanner.next().charAt(0);
+                movePlayer(move);
 
-        while (true) {
-            printMap();
-            System.out.println("Enter move (WASD): ");
-            char move = scanner.next().charAt(0);
-            movePlayer(move);
-            handleInteraction();
+                if (numEnemies == 0) {
+                    System.out.println("YOU WIN");
+                    System.exit(0);
+                }
+            }
         }
     }
 
     private static void initializeGame() {
-        player = new Player("Hero", 10, 5, 100, 0, 0, 0);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = mapper.readTree(new File("seed.json"));
+            MAP_SIZE = rootNode.get("mapSize").asInt();
+            numEnemies = rootNode.get("enemies").asInt(); // Initialize numEnemies here
+        } catch (IOException e) {
+            e.printStackTrace();
+            MAP_SIZE = 10; // default value if reading from JSON fails
+            numEnemies = 3; // default value if reading from JSON fails
+        }
+
+        map = new char[MAP_SIZE][MAP_SIZE];
+        player = new Player("Hero", 20, 10, 100, 0, 0, 0);
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
                 map[i][j] = EMPTY;
@@ -46,11 +68,34 @@ public class Main {
     }
 
     private static void placeObjects() {
-        //Needs Refinement, read from file!
-        map[2][2] = TREE;
-        map[3][3] = ROCK;
-        map[4][4] = GRAIN;
-        map[5][5] = ENEMY;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = mapper.readTree(new File("seed.json"));
+            int numTrees = rootNode.get("trees").asInt();
+            int numRocks = rootNode.get("rocks").asInt();
+            int numGrains = rootNode.get("grains").asInt();
+
+            placeRandomObjects(TREE, numTrees);
+            placeRandomObjects(ROCK, numRocks);
+            placeRandomObjects(GRAIN, numGrains);
+            placeRandomObjects(ENEMY, numEnemies);
+        } catch (IOException e) {
+            e.printStackTrace();
+            placeRandomObjects(ENEMY, numEnemies);
+        }
+    }
+
+    private static void placeRandomObjects(char object, int count) {
+        Random random = new Random();
+        int placed = 0;
+        while (placed < count) {
+            int x = random.nextInt(MAP_SIZE);
+            int y = random.nextInt(MAP_SIZE);
+            if (map[x][y] == EMPTY) {
+                map[x][y] = object;
+                placed++;
+            }
+        }
     }
 
     private static void printMap() {
@@ -67,20 +112,25 @@ public class Main {
         map[playerX][playerY] = EMPTY;
         switch (move) {
             case 'W':
-                if (playerX > 0) playerX--;
+                if (playerX > 0)
+                    playerX--;
                 break;
             case 'A':
-                if (playerY > 0) playerY--;
+                if (playerY > 0)
+                    playerY--;
                 break;
             case 'S':
-                if (playerX < MAP_SIZE - 1) playerX++;
+                if (playerX < MAP_SIZE - 1)
+                    playerX++;
                 break;
             case 'D':
-                if (playerY < MAP_SIZE - 1) playerY++;
+                if (playerY < MAP_SIZE - 1)
+                    playerY++;
                 break;
             default:
                 System.out.println("Invalid move!");
         }
+        handleInteraction();
         map[playerX][playerY] = PLAYER;
     }
 
@@ -88,25 +138,19 @@ public class Main {
         char currentTile = map[playerX][playerY];
         switch (currentTile) {
             case TREE:
-                Tree tree = new Tree(10, Rarity.COMMON);
-                double wood = tree.gather();
-                player.collectWood((int) wood);
-                System.out.println("Collected wood: " + wood);
+                Tree tree = new Tree();
+                player.gatherResource(tree);
                 break;
             case ROCK:
-                Rock rock = new Rock(10, Rarity.COMMON);
-                double stone = rock.gather();
-                player.collectStone((int) stone);
-                System.out.println("Collected stone: " + stone);
+                Rock rock = new Rock();
+                player.gatherResource(rock);
                 break;
             case GRAIN:
-                Grain grain = new Grain(10, Rarity.COMMON);
-                double food = grain.gather();
-                player.collectFood((int) food);
-                System.out.println("Collected food: " + food);
+                Grain grain = new Grain();
+                player.gatherResource(grain);
                 break;
             case ENEMY:
-                Enemy enemy = new Enemy("Goblin", 5, 2, 20);
+                Enemy enemy = new Enemy("MarshMellowGolem", 5, 2, 20);
                 while (player.isAlive && enemy.isAlive) {
                     player.damage(enemy);
                     if (enemy.isAlive) {
@@ -115,13 +159,14 @@ public class Main {
                 }
                 if (player.isAlive) {
                     System.out.println("Defeated the enemy!");
+                    numEnemies--; // Decrease numEnemies when an enemy is defeated
                 } else {
                     System.out.println("You died!");
                     System.exit(0);
                 }
                 break;
             default:
-                System.out.println("Nothing here.");
+                System.out.println("Nothing here.\n");
         }
     }
 }

@@ -2,6 +2,11 @@ package com.github.cataratoru_fara_cap.Gatherable;
 
 import com.github.cataratoru_fara_cap.Rarity;
 public class Tree extends Gatherable {
+    public Tree() {
+        super(Gatherable.initQuantity(), Rarity.getRandom());
+        this.name = "wood";
+    }
+
     public Tree(int quantity, Rarity rarity) {
         super(quantity, rarity);
         this.name = "wood";

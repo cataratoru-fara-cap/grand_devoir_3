@@ -3,14 +3,18 @@ package com.github.cataratoru_fara_cap.Gatherable;
 import com.github.cataratoru_fara_cap.Rarity;
 public abstract class Gatherable {
     protected String name;
-    private float quantity;
+    private double quantity;
     private Rarity rarity = Rarity.COMMON;
 
-    public Gatherable(int quantity, Rarity rarity) {
+    public Gatherable(double quantity, Rarity rarity) {
         this.quantity = quantity;
         if (rarity != null) {
             this.rarity = rarity;
         }
+    }
+
+    public static double initQuantity() {
+        return Math.random() * 10;
     }
 
     public double getQuantity() {
