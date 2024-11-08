@@ -50,4 +50,25 @@ public class GatherableTest {
         Grain grain = new Grain(20, Rarity.EPIC);
         assertEquals("Grain: 20.0 Rarity: EPIC", grain.toString());
     }
+
+    @Test
+    public void testTreeRandomInit() {
+        Tree tree = new Tree();
+        assertNotNull(tree.getRarity(), "Rarity should not be null");
+        assertTrue(tree.getQuantity() >= 0 && tree.getQuantity() <= 10, "Quantity should be between 0 and 10");
+    }
+
+    @Test
+    public void testRockRandomInit() {
+        Rock rock = new Rock();
+        assertNotNull(rock.getRarity(), "Rarity should not be null");
+        assertTrue(rock.getQuantity() >= 0 && rock.getQuantity() <= 10, "Quantity should be between 0 and 10");
+    }
+
+    @Test
+    public void testGrainRandomInit() {
+        Grain grain = new Grain();
+        assertNotNull(grain.getRarity(), "Rarity should not be null");
+        assertTrue(grain.getQuantity() >= 0 && grain.getQuantity() <= 10, "Quantity should be between 0 and 10");
+    }
 }
