@@ -8,11 +8,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Random;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class GameLogic {
     private static int MAP_SIZE;
@@ -79,24 +79,36 @@ public class GameLogic {
         }
     }
 
-    private void displayLastLogLines(int lines) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(LOG_FILE))) {
-            String[] logLines = new String[lines];
-            String line = reader.readLine();
-            int count = 0;
-            while (line != null) {
-                logLines[count % lines] = line;
-                count++;
-            }
-            int start = count > lines ? count % lines : 0;
-            int displayedLines = Math.min(lines, count);
-            for (int i = 0; i < displayedLines; i++) {
-                System.out.println(logLines[(start + i) % lines]);
-            }
+    private void displayLastLogLines(int size) {
+        ArrayList <String> lines = new ArrayList<String>();
+        try (RandomAccessFile file = new RandomAccessFile(LOG_FILE, "r")) {
+            long len = file.length();
+            long ptr = len - 1;
+            int linesCount = 0;
+            StringBuilder line = new StringBuilder();
+
+            while (ptr >= 0 && linesCount < size) {
+                file.seek(ptr);
+                char c = (char) file.readByte();
+                    if(c == '\n'){
+                        if (line.length() > 0) {
+                            lines.add(0,line.reverse().toString());
+                            line.setLength(0);
+                            linesCount++;
+                        }
+                    } else {
+                        line.append(c);
+                    }
+                    ptr--;
+                }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+
+        for (String line : lines) 
+            System.out.println(line); 
+        }
+
 
     private void placeRandomObjects(char object, int count) {
 
@@ -176,19 +188,19 @@ public class GameLogic {
         String message = "Enter move (WASD): " + move;
         logInteraction(message);
         switch (move) {
-            case 'W':
+            case 'w', 'W':
                 if (playerX > 0)
                     playerX--;
                 break;
-            case 'A':
+            case 'a', 'A':
                 if (playerY > 0)
                     playerY--;
                 break;
-            case 'S':
+            case 's', 'S':
                 if (playerX < MAP_SIZE - 1)
                     playerX++;
                 break;
-            case 'D':
+            case 'd', 'D':
                 if (playerY < MAP_SIZE - 1)
                     playerY++;
                 break;
