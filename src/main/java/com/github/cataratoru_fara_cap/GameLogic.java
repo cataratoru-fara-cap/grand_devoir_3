@@ -61,7 +61,15 @@ public class GameLogic {
         placeObjects();
         clearLogFile();
     }
-    // log methods   
+    // log methods
+    private void clearLogFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE))) {
+            writer.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void clearTerminal() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -106,7 +114,7 @@ public class GameLogic {
             System.out.println(line); 
         }
     
-    // game logic
+    // game logic methods
     private void placeRandomObjects(char object, int count) {
 
         Random random = new Random();
