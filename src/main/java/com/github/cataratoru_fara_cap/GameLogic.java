@@ -1,4 +1,3 @@
-
 package com.github.cataratoru_fara_cap;
 
 import com.github.cataratoru_fara_cap.Character.*;
@@ -10,6 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class GameLogic {
     private static int MAP_SIZE;
@@ -26,6 +29,8 @@ public class GameLogic {
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
     private static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
+
+    private static final String LOG_FILE = "game_log.txt";
 
     private char[][] map;
     private Player player;
@@ -54,8 +59,59 @@ public class GameLogic {
         }
         map[playerX][playerY] = PLAYER;
         placeObjects();
+        clearLogFile();
     }
 
+    private void clearLogFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE))) {
+            writer.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logInteraction(String message) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE, true))) {
+            writer.write(message);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayLastLogLines(int lines) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(LOG_FILE))) {
+            String[] logLines = new String[lines];
+            String line = reader.readLine();
+            int count = 0;
+            while (line != null) {
+                logLines[count % lines] = line;
+                count++;
+            }
+            int start = count > lines ? count % lines : 0;
+            int displayedLines = Math.min(lines, count);
+            for (int i = 0; i < displayedLines; i++) {
+                System.out.println(logLines[(start + i) % lines]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void placeRandomObjects(char object, int count) {
+
+        Random random = new Random();
+        int placed = 0;
+        while (placed < count) {
+            int x = random.nextInt(MAP_SIZE);
+            int y = random.nextInt(MAP_SIZE);
+            if (map[x][y] == EMPTY) {
+                map[x][y] = object;
+                placed++;
+            }
+        }
+    }
+    
     private void placeObjects() {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -74,20 +130,8 @@ public class GameLogic {
         }
     }
 
-    private void placeRandomObjects(char object, int count) {
-        Random random = new Random();
-        int placed = 0;
-        while (placed < count) {
-            int x = random.nextInt(MAP_SIZE);
-            int y = random.nextInt(MAP_SIZE);
-            if (map[x][y] == EMPTY) {
-                map[x][y] = object;
-                placed++;
-            }
-        }
-    }
-
     public void printMap() {
+        clearTerminal();
         System.out.println();
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
@@ -113,14 +157,24 @@ public class GameLogic {
             }
             System.out.println();
         }
+        displayLastLogLines(4);
+    }
+
+    private void clearTerminal() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public void craft(String ans) {
+        String message = "Do you want to craft something?(Yes/no): " + ans;
+        logInteraction(message);
         System.out.println("You don't know how to craft items yet");
     }
 
     public void movePlayer(char move) {
         map[playerX][playerY] = EMPTY;
+        String message = "Enter move (WASD): " + move;
+        logInteraction(message);
         switch (move) {
             case 'W':
                 if (playerX > 0)
@@ -169,10 +223,14 @@ public class GameLogic {
                     }
                 }
                 if (player.isAlive) {
-                    System.out.println("Defeated the enemy!");
+                    String message = "Defeated the enemy!";
+                    logInteraction(message);
+                    System.out.println(message);
                     numEnemies--;
                 } else {
-                    System.out.println("You died!");
+                    String message = "You died!";
+                    logInteraction(message);
+                    System.out.println(message);
                     System.exit(0);
                 }
                 break;

@@ -15,6 +15,7 @@ public class Main {
 
                 System.out.println("Enter move (WASD): ");
                 char move = scanner.next().charAt(0);
+                scanner.nextLine(); // consume the newline
                 game.movePlayer(move);
 
                 if (game.isGameWon()) {
