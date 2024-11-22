@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-public class Game {
+public class GameLogic {
     private static int MAP_SIZE;
     private static final char EMPTY = '0';
     private static final char PLAYER = 'P';
