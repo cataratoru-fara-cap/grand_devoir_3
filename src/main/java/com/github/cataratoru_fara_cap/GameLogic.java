@@ -215,6 +215,7 @@ public class GameLogic {
         char currentTile = map[playerX][playerY];
         switch (currentTile) {
             case TREE:
+                //Needs reimplementaiton to log the interaction
                 Tree tree = new Tree();
                 player.gatherResource(tree);
                 break;
